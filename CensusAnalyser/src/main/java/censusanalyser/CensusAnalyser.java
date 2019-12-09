@@ -13,30 +13,32 @@ import java.util.stream.StreamSupport;
 public class CensusAnalyser {
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
-
             Iterator<IndiaCensusCSV> censusCSVIterator = this.getCSVFileIterator(reader, IndiaCensusCSV.class);
-            Iterable<IndiaCensusCSV> iterable = () -> censusCSVIterator;
-            int namOfEateries = (int) StreamSupport.stream(iterable.spliterator(), false).count();
-            return namOfEateries;
-
+            return this.getCount(censusCSVIterator);
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
     }
+
     public int loadStateCode(String indiaCensusCSVFilePath) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(indiaCensusCSVFilePath))) {
             Iterator<IndiaStateCodeCSV> censusCSVIterator = this.getCSVFileIterator(reader,IndiaStateCodeCSV.class);
-            Iterable<IndiaStateCodeCSV> iterable = () -> censusCSVIterator;
-            int namOfEateries = (int) StreamSupport.stream(iterable.spliterator(), false).count();
-            return namOfEateries;
-
+            return this.getCount(censusCSVIterator);
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
 
     }
+
+    private <E> int getCount(Iterator<E> iterator)
+    {
+        Iterable<E> iterable = () -> iterator;
+        int namOfEateries = (int) StreamSupport.stream(iterable.spliterator(), false).count();
+        return namOfEateries;
+    }
+
     private <E> Iterator<E> getCSVFileIterator(Reader reader, Class<E> csvClass) throws CensusAnalyserException {
         try {
             CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
