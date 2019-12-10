@@ -46,6 +46,20 @@ public class CensusAnalyserTest {
     }
 
     @Test
+    public void givenIndianCensusData_WhenSortedOnStateWrong_ShouldReturnWrongSortedResult() {
+        String sortedCensusData = null;
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
+            Assert.assertNotEquals("Goa",censusCSV[0].state);
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
     public void givenIndianCensusData_WhenSortedOnState_ShouldReturnSortedResult() {
 
         String sortedCensusData = null;
@@ -57,6 +71,8 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException e) {
           e.printStackTrace();
         }
+
+
 
 
     }
