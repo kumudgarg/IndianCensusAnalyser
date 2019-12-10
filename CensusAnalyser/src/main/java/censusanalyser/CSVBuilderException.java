@@ -5,14 +5,14 @@ public class CSVBuilderException extends Throwable {
         CENSUS_FILE_PROBLEM, UNABLE_TO_PARSE
     }
 
-    CensusAnalyserException.ExceptionType type;
+    ExceptionType type;
 
-    public CSVBuilderException(String message, CensusAnalyserException.ExceptionType type) {
+    public CSVBuilderException(String message,ExceptionType type) {
         super(message);
         this.type = type;
     }
 
-    public CSVBuilderException(String message, CensusAnalyserException.ExceptionType type, Throwable cause) {
+    public CSVBuilderException(String message, ExceptionType type, Throwable cause) {
         super(message, cause);
         this.type = type;
     }
