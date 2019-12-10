@@ -85,6 +85,17 @@ public class CensusAnalyser {
         return sortedStateCensusJson;
     }
 
+    public String getAreaInSqKmWiseSortedCensusData(String csvFilePath) throws CensusAnalyserException {
+        loadIndiaCensusData(csvFilePath);
+        if (csvFileList == null || csvFileList.size() == 0) {
+            throw new CensusAnalyserException("NO_CENSUS_DATA", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+        }
+        Comparator<IndiaCensusDAO> censusComparator = Comparator.comparing(census -> census.areaInSqKm);
+        this.sort(censusComparator);
+        String sortedStateCensusJson = new Gson().toJson(this.csvFileList);
+        return sortedStateCensusJson;
+    }
+
     private void sort(Comparator<IndiaCensusDAO> censusComparator) {
         for (int i = 0; i < csvFileList.size(); i++) {
             for (int j = 0; j < csvFileList.size() - i - 1; j++) {
