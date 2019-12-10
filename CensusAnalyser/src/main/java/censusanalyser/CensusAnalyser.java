@@ -35,7 +35,7 @@ public class CensusAnalyser {
             throw new CensusAnalyserException(e.getMessage(), e.type.name());
         } catch (RuntimeException e) {
             throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.CENSUS_FILE_DELIMITER_PROBLEM);
+                    CensusAnalyserException.ExceptionType.CSV_FILE_INTERNAL_ISSUES);
         }
     }
 
