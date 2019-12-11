@@ -85,7 +85,7 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
-            Assert.assertNotEquals("Goa",censusCSV[0].state);
+            Assert.assertNotEquals("Goa", censusCSV[0].state);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
@@ -94,41 +94,15 @@ public class CensusAnalyserTest {
 
     @Test
     public void givenIndianCensusData_WhenSortedOnState_ShouldReturnSortedResult() {
-
         String sortedCensusData = null;
         try {
+
             CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            censusAnalyser.loadStateCode(INDIAN_CSV_STATE_PATH);
             sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
-            Assert.assertEquals("Andhra Pradesh",censusCSV[0].state);
-        } catch (CensusAnalyserException e) {
-          e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void givenIndianCensusData_WhenSortedOnPopulation_ShouldReturnSortedResult() {
-
-        String sortedCensusData = null;
-        try {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            sortedCensusData = censusAnalyser.getPopulationWiseSortedCensusData(INDIA_CENSUS_CSV_FILE_PATH);
-            IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
-            Assert.assertEquals(199812341,censusCSV[censusCSV.length - 1].population);
-        } catch (CensusAnalyserException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void givenIndianCensusData_WhenSortedOnAreaInSqKm_ShouldReturnSortedResult() {
-
-        String sortedCensusData = null;
-        try {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            sortedCensusData = censusAnalyser.getAreaInSqKmWiseSortedCensusData(INDIA_CENSUS_CSV_FILE_PATH);
-            IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
-            Assert.assertEquals(342239,censusCSV[censusCSV.length - 1].areaInSqKm);
+            Assert.assertEquals("Andhra Pradesh", censusCSV[0].state);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
