@@ -13,6 +13,7 @@ public class CensusAnalyserTest {
     private static final String INDIAN_CENSUS_CSV_WRONG_DELIMITER = "./src/test/resources/IndiaStateCensusDataWrongDelimiter.csv";
     private static final String INDIAN_CENSUS_CSV_MISSING = "./src/test/resources/IndiaStateCensusDataMissingHeader.csv";
     private static final String INDIAN_CENSUS_EMPTY_FILE = "./src/test/resources/IndianCensusData.csv";
+    private static final String US_CENSUS_CSV_FILE_PATH = "/home/admin105/Downloads/CensusAnalyser/CensusAnalyser/src/test/resources/USCensusData.csv";
 
     @Test
     public void givenIndianCensusCSVFileReturnsCorrectRecords() {
@@ -107,4 +108,13 @@ public class CensusAnalyserTest {
             e.printStackTrace();
         }
     }
-}
+
+    @Test
+    public void givenUSCENSUSDATA_ShouldReturnCorrectRecords() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        int data = 0;
+        data = censusAnalyser.loasUSCensusData(US_CENSUS_CSV_FILE_PATH);
+        Assert.assertEquals(51, data);
+    }
+
+    }
