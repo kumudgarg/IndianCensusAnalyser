@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.Map;
+
 public class CensusAnalyserTest {
 
     private static final String INDIA_CENSUS_CSV_FILE_PATH = "./src/test/resources/IndiaStateCensusData.csv";
@@ -13,7 +15,7 @@ public class CensusAnalyserTest {
     private static final String INDIAN_CENSUS_CSV_WRONG_DELIMITER = "./src/test/resources/IndiaStateCensusDataWrongDelimiter.csv";
     private static final String INDIAN_CENSUS_CSV_MISSING = "./src/test/resources/IndiaStateCensusDataMissingHeader.csv";
     private static final String INDIAN_CENSUS_EMPTY_FILE = "./src/test/resources/IndianCensusData.csv";
-    private static final String US_CENSUS_CSV_FILE_PATH = "/home/admin105/Downloads/CensusAnalyser/CensusAnalyser/src/test/resources/USCensusData.csv";
+    private static final String US_CENSUS_CSV_FILE_PATH = "./src/test/resources/USCensusData.csv";
 
     @Test
     public void givenIndianCensusCSVFileReturnsCorrectRecords() {
@@ -97,7 +99,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenUSCENSUSDATA_ShouldReturnCorrectRecords() {
+    public void givenUSCensusData_ShouldReturnCorrectRecords() {
         CensusAnalyser censusAnalyser = new CensusAnalyser();
         int data = 0;
         try {
@@ -106,6 +108,27 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
+    }
 
+    @Test
+    public void givenUSCensusData_ThroughCensusAdapter_ShouldReturnCorrectRecords() {
+        CensusAdapter censusAdapter = new USCensusAdapter();
+        try {
+            Map<String, CensusDAO> censusDAOMap = censusAdapter.loadCensusData(CensusAnalyser.Country.US, US_CENSUS_CSV_FILE_PATH);
+            Assert.assertEquals(51,censusDAOMap.size());
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIndiaCensusData_ThroughCensusAdapter_ShouldReturnCorrectRecords() {
+        CensusAdapter censusAdapter = new IndiaCensusAdapter();
+        try {
+            Map<String, CensusDAO> censusDAOMap = censusAdapter.loadCensusData(CensusAnalyser.Country.INDIA, INDIA_CENSUS_CSV_FILE_PATH, INDIAN_CSV_STATE_PATH);
+            Assert.assertEquals(29,censusDAOMap.size());
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
     }
 }
