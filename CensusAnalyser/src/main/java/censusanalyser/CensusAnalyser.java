@@ -19,33 +19,18 @@ public class CensusAnalyser {
     }
 
 
-    public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
-        csvFileMap = new CensusLoader().loadCensusData(csvFilePath, IndiaCensusCSV.class);
+    public int loadIndiaCensusData(String... csvFilePath) throws CensusAnalyserException {
+        csvFileMap = new CensusLoader().loadCensusData(IndiaCensusCSV.class);
         return csvFileMap.size();
 
     }
 
-    public int loasUSCensusData(String usCensusCsvFilePath) throws CensusAnalyserException {
-        csvFileMap = new CensusLoader().loadCensusData(usCensusCsvFilePath, USCensusCSV.class);
+    public int loasUSCensusData(String... usCensusCsvFilePath) throws CensusAnalyserException {
+        csvFileMap = new CensusLoader().loadCensusData(USCensusCSV.class);
         return csvFileMap.size();
     }
 
-    public int loadStateCode(String indiaCensusCSVFilePath) throws CensusAnalyserException {
-        try (Reader reader = Files.newBufferedReader(Paths.get(indiaCensusCSVFilePath))) {
-            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<IndiaStateCodeCSV> stateCodeCSVIterator = csvBuilder.getCSVFileIterator(reader, IndiaStateCodeCSV.class);
-            Iterable<IndiaStateCodeCSV> csvIterable = () -> stateCodeCSVIterator;
-            StreamSupport.stream(csvIterable.spliterator(), false)
-                    .filter(csvState -> csvFileMap.get(csvState.stateName) != null)
-                    .forEach(censusCSV -> csvFileMap.get(censusCSV.stateName).state = censusCSV.stateCode);
-            return csvFileMap.size();
-        } catch (IOException e) {
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        } catch (CSVBuilderException e) {
-            throw new CensusAnalyserException(e.getMessage(), e.type.name());
-        }
-    }
+
 
     public String getStateWiseSortedCensusData(String csvFilePath) throws CensusAnalyserException {
         if (csvFileMap == null || csvFileMap.size() == 0) {
