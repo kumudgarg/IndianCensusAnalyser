@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.StreamSupport;
@@ -12,6 +13,14 @@ public class CensusLoader {
     Map<String, CensusDAO> censusStateMap = null;
 
     public CensusLoader() {
+        censusStateMap = new HashMap<>();
+    }
+    public Map<String, CensusDAO> loadCensusData(CensusAnalyser.Country country, String... csvFilePath ) throws CensusAnalyserException {
+        if (country.equals(CensusAnalyser.Country.INDIA))
+            return this.loadCensusData(IndiaCensusCSV.class, csvFilePath);
+        else if(country.equals(CensusAnalyser.Country.US))
+            return this.loadCensusData(USCensusCSV.class, csvFilePath);
+        else throw new CensusAnalyserException("Incorrect Country" , CensusAnalyserException.ExceptionType.INVALID_COUNTRY);
     }
 
     public  <E> Map<String, CensusDAO> loadCensusData(Class<E> censusCSVClass, String... csvFilePath) throws CensusAnalyserException {
