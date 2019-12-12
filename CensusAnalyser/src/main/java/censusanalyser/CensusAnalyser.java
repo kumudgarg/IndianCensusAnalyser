@@ -2,13 +2,8 @@ package censusanalyser;
 
 import com.google.gson.Gson;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class CensusAnalyser {
 
@@ -21,7 +16,7 @@ public class CensusAnalyser {
 
 
     public int loadCensusData(Country country, String... csvFilePath) throws CensusAnalyserException {
-        csvFileMap = new CensusLoader().loadCensusData(country, csvFilePath);
+        csvFileMap = new CensusAdapterFactory().censusFactory(country, csvFilePath);
         return csvFileMap.size();
 
     }
