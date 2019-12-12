@@ -72,7 +72,7 @@ public class CensusAnalyserTest {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             int numOfStateCode = censusAnalyser.loadStateCode(INDIAN_CSV_STATE_PATH);
-            Assert.assertEquals(37, numOfStateCode);
+            Assert.assertEquals(29, numOfStateCode);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
