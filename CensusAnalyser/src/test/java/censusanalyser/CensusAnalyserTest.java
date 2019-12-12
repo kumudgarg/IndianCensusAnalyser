@@ -113,8 +113,13 @@ public class CensusAnalyserTest {
     public void givenUSCENSUSDATA_ShouldReturnCorrectRecords() {
         CensusAnalyser censusAnalyser = new CensusAnalyser();
         int data = 0;
-        data = censusAnalyser.loasUSCensusData(US_CENSUS_CSV_FILE_PATH);
-        Assert.assertEquals(51, data);
+        try {
+            data = censusAnalyser.loasUSCensusData(US_CENSUS_CSV_FILE_PATH);
+            Assert.assertEquals(51, data);
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+
     }
 
     }
