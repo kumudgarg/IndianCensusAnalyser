@@ -1,3 +1,4 @@
+/*
 package censusanalyser;
 
 public class SortCensusTitleStrategy {
@@ -29,3 +30,4 @@ public class SortCensusTitleStrategy {
         return comparator;
     }
 }
+*/
