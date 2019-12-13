@@ -13,7 +13,6 @@ public class IndiaCensusAdapterTest {
     private static final String INDIAN_CENSUS_CSV_WRONG_DELIMITER = "./src/test/resources/IndiaStateCensusDataWrongDelimiter.csv";
     private static final String INDIAN_CENSUS_CSV_MISSING = "./src/test/resources/IndiaStateCensusDataMissingHeader.csv";
     private static final String INDIAN_CENSUS_EMPTY_FILE = "./src/test/resources/IndianCensusData.csv";
-    private static final String US_CENSUS_CSV_FILE_PATH = "./src/test/resources/USCensusData.csv";
 
     @Test
     public void givenIndiaCensusData_ThroughCensusAdapter_ShouldReturnCorrectRecords() {
@@ -53,20 +52,6 @@ public class IndiaCensusAdapterTest {
             Map<String, CensusDAO> censusDAOMap = censusAdapter.loadCensusData(CensusAnalyser.Country.INDIA, INDIAN_CENSUS_EMPTY_FILE, INDIA_CENSUS_CSV_FILE_PATH);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.CSV_FILE_INTERNAL_ISSUES, e.type);
-        }
-    }
-
-    @Test
-    public void givenData_whenReverseSortedByAreaUsingInterface_ShouldReturnSortedoutput() {
-        try {
-            CensusAdapter censusAdapter = new IndiaCensusAdapter();
-            Map<String, CensusDAO> censusDAOMap = new CensusAdapterFactory().censusFactory(CensusAnalyser.Country.INDIA, INDIA_CENSUS_CSV_FILE_PATH, INDIAN_CSV_STATE_PATH);
-            CensusAnalyser censusAnalyser = new CensusAnalyser(censusDAOMap);
-            String sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(INDIA_CENSUS_CSV_FILE_PATH);
-            CensusDAO[] CsvDataList = new Gson().fromJson(sortedCensusData, CensusDAO[].class);
-            Assert.assertEquals("Rajasthan", CsvDataList[0].state);
-        } catch (CensusAnalyserException e) {
-            e.printStackTrace();
         }
     }
 }
