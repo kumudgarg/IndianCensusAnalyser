@@ -1,18 +1,21 @@
-/*
 package censusanalyser;
+
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SortCensusTitleStrategy {
 
-    static Map<SortParameter.Parameter, Comparator> sortParameterComparator = new HashMap<>();
+    static Map<SortCensusTitleStrategy.Parameter, Comparator> sortParameterComparator = new HashMap<>();
 
     enum Parameter {
         STATE, POPULATION, AREA, DENSITY;
     }
 
-    SortParameter() {
+    SortCensusTitleStrategy() {
 
     }
-    public static Comparator getParameter(SortParameter.Parameter parameter) {
+    public static Comparator getParameter(SortCensusTitleStrategy.Parameter parameter) {
 
         Comparator<IndiaCensusDAO> stateComparator = Comparator.comparing(census -> census.state);
         Comparator<IndiaCensusDAO> areaComparator = Comparator.comparing(census -> census.areaInSqKm);
@@ -30,4 +33,3 @@ public class SortCensusTitleStrategy {
         return comparator;
     }
 }
-*/

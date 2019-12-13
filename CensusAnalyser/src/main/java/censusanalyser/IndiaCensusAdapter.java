@@ -38,4 +38,4 @@ public class IndiaCensusAdapter extends CensusAdapter {
             throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.CSV_FILE_INTERNAL_ISSUES);
         }
     }
-    }
+}
