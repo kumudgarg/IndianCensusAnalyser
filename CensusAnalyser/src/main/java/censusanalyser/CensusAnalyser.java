@@ -25,17 +25,16 @@ public class CensusAnalyser {
         return censusStateMap.size();
     }
 
-    public String getStateWiseSortedCensusData(String csvFilePath) throws CensusAnalyserException {
+    public String getStateWiseSortedCensusData(SortByField.Parameter parameter) throws CensusAnalyserException {
         if (censusStateMap == null || censusStateMap.size() == 0) {
             throw new CensusAnalyserException("NO_CENSUS_DATA", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
         }
-        Comparator<CensusDAO> censusComparator = Comparator.comparing(census -> census.state);
-
+        SortByField sortByField = new SortByField();
+        Comparator<CensusDAO> censusComparator = sortByField.getParameter(parameter);
         ArrayList censusDTOS = censusStateMap.values().stream().
                 sorted(censusComparator).
                 map(censusDAO -> censusDAO.getCensusDTO(country)).
                 collect(Collectors.toCollection(ArrayList::new));
-
         String sortedStateCensusJson = new Gson().toJson(censusDTOS);
         return sortedStateCensusJson;
     }

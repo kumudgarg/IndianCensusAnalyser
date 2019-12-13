@@ -22,10 +22,6 @@ public class CensusDAO {
         stateCode = next.StateId;
     }
 
-    public IndiaCensusCSV getIndiaCensusCSV() {
-        return new IndiaCensusCSV(state, population, (int) populationDensity, (int) totalArea);
-    }
-
     public Object getCensusDTO(CensusAnalyser.Country country) {
         if (country.equals(CensusAnalyser.Country.US))
             return new USCensusCSV(state, stateCode, population, populationDensity, totalArea);
