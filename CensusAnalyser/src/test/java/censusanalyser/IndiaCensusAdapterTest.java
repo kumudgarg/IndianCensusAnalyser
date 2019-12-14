@@ -3,6 +3,7 @@ package censusanalyser;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
+
 import java.util.Comparator;
 import java.util.Map;
 

@@ -9,7 +9,7 @@ public class USCensusAdapterPattern {
     private static final String US_CENSUS_EMPTY_FILE = "./src/test/resources/IndianCensusData.csv";
     private static final String US_CENSUS_CSV_FILE_PATH = "./src/test/resources/USCensusData.csv";
     private static final String US_CENSUS_CSV_WRONG_DELIMITER = "/home/admin105/Downloads/CensusAnalyser/CensusAnalyser/src/test/resources/USCensusWrongDelimiter.csv";
-    private static final String US_CENSUS_CSV_MISSING_Header="/home/admin105/Downloads/CensusAnalyser/CensusAnalyser/src/test/resources/USCensusMissingHeader.csv";
+    private static final String US_CENSUS_CSV_MISSING_Header = "/home/admin105/Downloads/CensusAnalyser/CensusAnalyser/src/test/resources/USCensusMissingHeader.csv";
 
     @Test
     public void givenUSCensusData_ThroughCensusAdapter_ShouldReturnCorrectRecords() {
@@ -27,7 +27,7 @@ public class USCensusAdapterPattern {
         CensusAdapter censusAdapter = new USCensusAdapter();
         try {
             Map<String, CensusDAO> censusDAOMap = censusAdapter.loadCensusData(CensusAnalyser.Country.US, US_CENSUS_CSV_WRONG_DELIMITER);
-        }catch (CensusAnalyserException e) {
+        } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.CSV_FILE_INTERNAL_ISSUES, e.type);
         }
     }
@@ -37,7 +37,7 @@ public class USCensusAdapterPattern {
         CensusAdapter censusAdapter = new USCensusAdapter();
         try {
             Map<String, CensusDAO> censusDAOMap = censusAdapter.loadCensusData(CensusAnalyser.Country.US, US_CENSUS_CSV_MISSING_Header);
-        }catch (CensusAnalyserException e) {
+        } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.CSV_FILE_INTERNAL_ISSUES, e.type);
         }
     }
